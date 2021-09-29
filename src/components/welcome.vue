@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+        <!-- Entah apa yang ada di kodeku hingga blank :c-->
         <!-- <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
