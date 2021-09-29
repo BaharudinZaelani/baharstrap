@@ -19,7 +19,7 @@
                 </div>
                 <div>
                     <div class="list-group">
-                        <a @click="detail(item.id)" v-for="item in books" :key="item.id" class="list-group-item list-group-item-action">
+                        <a @click="cek(item.id)" v-for="item in books" :key="item.id" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ item.judul_buku }}</h5>
                             <small class="text-muted">{{ item.created_at.substr(0, 10) }}</small>
@@ -31,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <!-- Entah apa yang ada di kodeku hingga blank :c-->
-        <!-- <div class="col-md-6">
+        <!-- Entah apa yang ada di kodeku hingga blank :c -->
+        <!-- <div class="col-md-6" v-if="cek">
             <div class="card">
                 <div class="card-header">
                     {{ tempBooks[0].judul_buku }}
@@ -59,6 +59,7 @@
                 </div>
             </div>
         </div> -->
+        
     </div>
     <div class="m-5"></div>
 </template>
@@ -89,7 +90,7 @@ export default {
         },
         cek(id){
             if( id != 'undefined' ){
-                return true;
+                this.detail(id)
             }
             return false;
         }
