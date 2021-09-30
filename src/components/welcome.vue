@@ -12,14 +12,14 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-6">
+        <div class="col-md">
             <div class="card">
                 <div class="card-header">
                     Ruang Buku
                 </div>
                 <div>
                     <div class="list-group">
-                        <a @click="cek(item.id)" v-for="item in books" :key="item.id" class="list-group-item list-group-item-action">
+                        <a @click="detail(item.id)" v-for="item in books" :key="item.id" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ item.judul_buku }}</h5>
                             <small class="text-muted">{{ item.created_at.substr(0, 10) }}</small>
@@ -59,8 +59,33 @@
                 </div>
             </div>
         </div> -->
-        
+        <div class="col-md-8" v-if="showTemp">
+            <div class="card">
+                <div class="card-header">
+                    {{ tempBook[0].id }}
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Judul Buku</th>
+                                <th>Nama Penuli</th>
+                                <th>Penerbit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>{{ tempBook[0].judul_buku }}</th>
+                                <td>{{ tempBook[0].penulis }}</td>
+                                <td>{{ tempBook[0].penerbit }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    {{ showTemp }}
     <div class="m-5"></div>
 </template>
 <script>
@@ -69,10 +94,14 @@ export default {
     data() {
         return {
             books: [],
-            tempBooks: []
+            tempBook: [],
+            showTemp: false
         }
     },
     created() {
+        // console.log(this.zaw)
+    },
+    mounted() {
         const axios = require('axios')
         axios.get('http://127.0.0.1:8000/api/book?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlRoZVphd3ciLCJyb2xlIjoidXNlciIsImV4cGlyZWQiOjR9.WHw01kHE6ttgEx_nI1aH9_4Ohq0OhzRY-xV9k1WYc4g')
         .then(respon => {
@@ -81,19 +110,12 @@ export default {
     },
     methods: {
         detail(id){
-            // let count = this.books.length
-            let tempBook = []
-            tempBook = this.books.filter((book) => {
+            this.tempBook = this.books.filter((book) => {
+                // console.log(book.id == id)
                 return (book.id == id)
             })
-            this.tempBooks = tempBook
-        },
-        cek(id){
-            if( id != 'undefined' ){
-                this.detail(id)
-            }
-            return false;
+            this.showTemp = true
         }
-    },
+    }
 }
 </script>
